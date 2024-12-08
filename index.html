@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Котъ</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #cat{
+            width: 170px;
+            height: 150px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="cat1.png" alt="cat" id="cat">
+    <script>
+        let cat = document.getElementById("cat");
+        let start_cat_x = 0;
+        let start_cat_y = 0;
+        let window_width = window.innerWidth;
+        let window_height = window.innerHeight;
+        let animate_cat;
+
+        function run_cat (){
+            start_cat_x+=10; 
+            cat.style.left=start_cat_x+"px"; 
+            if(start_cat_x >= window_width-150){ 
+                clearInterval(animate_cat)
+                animate_cat = setInterval (moveBottom,20)
+            }
+        }
+        function moveBottom(){
+            cat.style.rotate="90deg"
+            start_cat_y+=10
+            cat.style.top = start_cat_y+"px";
+            if(start_cat_y >= window_height-150){
+                clearInterval(animate_cat)
+                animate_cat = setInterval(moveBack, 20)
+            }
+        }
+        function moveBack(){
+            cat.style.rotate="180deg"
+            start_cat_x-=10
+            cat.style.left = start_cat_x+"px";
+            if(start_cat_x <= 0){
+                clearInterval(animate_cat)
+                animate_cat = setInterval(moveUp, 20)
+            }
+        }
+        function moveUp(){
+            cat.style.rotate="270deg"
+            start_cat_y-=10
+            cat.style.top = start_cat_y+"px";
+            if(start_cat_y <= 0){
+                clearInterval(animate_cat)
+                cat.style.rotate="360deg"
+            }
+        }
+
+        function click_cat(){
+            animate_cat = setInterval(run_cat, 20);
+        }
+
+        cat.addEventListener("mousedown", click_cat);
+    </script>
+</body>
+</html>
